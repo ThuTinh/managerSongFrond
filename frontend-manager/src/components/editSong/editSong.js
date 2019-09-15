@@ -1,14 +1,16 @@
 import React from 'react';
+import { actCreateSongRequest } from '../../actions';
+import { connect } from 'react-redux';
+import {NavLink} from 'react-router-dom'
 
 class EditSong extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.state = {
             nameSong: "",
-            singer : "",
+            singer: "",
             composer: "",
-            releaseYear:""
+            releaseYear: 0
 
         }
 
@@ -17,28 +19,28 @@ class EditSong extends React.Component {
         return (
             <div className="container text-center">
                 <div className="w-50 ">
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Tên bài hát" name = "nameSong" value = {this.state.nameSong} onChange = {this.onChange} />
+                    <form onSubmit={this.addSong}>
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Tên bài hát" name="nameSong" value={this.state.nameSong} onChange={this.onChange} />
 
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Ca sĩ" name = "singer"  value = {this.state.singer} onChange = {this.onChange} />
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Ca sĩ" name="singer" value={this.state.singer} onChange={this.onChange} />
 
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Sáng tác" name = "composer"  value = {this.state.composer} onChange = {this.onChange}/>
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Sáng tác" name="composer" value={this.state.composer} onChange={this.onChange} />
 
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Năm phát hành" name = "releaseYear"  value = {this.state.releaseYear} onChange = {this.onChange}/>
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Năm phát hành" name="releaseYear" value={this.state.releaseYear} onChange={this.onChange} />
 
-                    </div>
-                    <div className="d-flex flex-row-reverse">
-                        <button className="btn btn-info  ml-2" onClick={ ()=>this.saveSong(this.state)}> Lưu</button>
-                        <button className="btn btn-info"> Trở lại</button>
-                    </div>
-
-
+                        </div>
+                        <div className="d-flex flex-row-reverse">
+                            <button className="btn btn-info  ml-2" type="submit" onClick={() => this.addSong}> Lưu</button>
+                           <button className = "btn btn-infor"> <NavLink to = '/songs'> Trở lại</NavLink> </button>
+                            </div>
+                    </form>
                 </div>
 
             </div>
@@ -54,10 +56,33 @@ class EditSong extends React.Component {
         })
         console.log(this.state);
     }
-    saveSong = (song)=>{
-        
+    addSong = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        var { nameSong, singer, composer, releaseYear } = this.state;
+        var song = {
+            nameSong: nameSong,
+            singer: singer,
+            composer: composer,
+            releaseYear: releaseYear
+        }
+        this.props.addSong(song);
+        history.goBack();
+    }
+   
+}
+
+const stateMapToProps = (state) => {
+    return {
+        songs: state.songs
     }
 
 }
-
-export default EditSong;
+const dispatchMapToProps = (dispatch, props) => {
+    return {
+        addSong: (song) => {
+            dispatch(actCreateSongRequest(song));
+        }
+    }
+}
+export default connect(stateMapToProps, dispatchMapToProps)(EditSong);

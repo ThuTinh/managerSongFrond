@@ -34,9 +34,9 @@ const songs = (state = inintState, action) => {
             return [...state];
         case Types.DELETE_SONG:
             if (state.length >= 0) {
-                let i = findIndex(state, id);
-                if (id != -1) {
-                    state = state.splice(id, 1);
+                let i = findIndex(state, action.id);
+                if (action.id != -1) {
+                    state = state.splice(action.id, 1);
                 }
             }
 
@@ -56,7 +56,7 @@ const songs = (state = inintState, action) => {
 
 var findIndex = (songs, id) => {
     var result = -1;
-    for (let i = 0; i < products.length; i++) {
+    for (let i = 0; i < songs.length; i++) {
         if (songs[i].id === id) {
             result = i;
             break;

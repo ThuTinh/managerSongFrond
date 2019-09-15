@@ -13,7 +13,7 @@ function ListSong(props) {
           <h4 className="card-title w-100 text-center">Danh sách bài hát</h4>
           <div>
             <div className = "w-100  d-flex  flex-row-reverse" >
-             <NavLink to = '/songs/add'> <button className = "btn btn-danger mb-2">Thêm bài hát</button></NavLink> 
+             <NavLink to = '/song/add'> <button className = "btn btn-danger mb-2">Thêm bài hát</button></NavLink> 
             </div>
            <table className="table">
              <thead>

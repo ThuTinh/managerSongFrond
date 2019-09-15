@@ -14,16 +14,29 @@ export const actGetSongsRequest = () => {
 
 export const actDeleteSongRequest = (id) => {
     return (dispatch) => {
-        return callApi(`song/${id}`, 'DELETE', null).then(res => {
-            dispatch(actDeleteSong(id));
+        return callApi(`songs/${id}`, 'DELETE', null).then(res => {
+            dispatch(actGetSongsRequest());
         })
     }
 }
 
 export const actCreateSongRequest = (song) => {
     return (dispatch) => {
-        return callApi('song', 'POST', song).then(res => {
-            dispatch(actCreateSong(song));
+        return callApi('songs', 'POST', {
+            nameSong: song.nameSong,
+            singer: song.singer,
+            composer: song.composer,
+            releaseYear: song.releaseYear
+        }).then(res => {
+            dispatch(actGetSongsRequest());
+        })
+    }
+}
+
+export const actUpdateSongRequest = (song, id)=>{
+    return (dispatch)=>{
+        return callApi(`songs/${id}`, 'PUT',song).then(res=>{
+            dispatch(actGetSongsRequest());
         })
     }
 }

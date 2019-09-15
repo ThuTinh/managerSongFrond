@@ -4,18 +4,22 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
 import routes from './route'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Menu from './components/menu/menu';
 library.add(faEdit, faEye, faTrash)
 
 
 function App() {
   return (
     <Router>
-      <div className="row">
-        <div className="col-12"> 
+      <div>
+        <Menu></Menu>
+        <div className="row">
+          <div className="col-12">
             {showPage(routes)}
+          </div>
         </div>
-       
       </div>
+
     </Router>
   );
 }

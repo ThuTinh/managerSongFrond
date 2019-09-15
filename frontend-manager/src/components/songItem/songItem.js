@@ -8,7 +8,7 @@ class SongItem extends React.Component {
     render() {
         var { song, index } = this.props;
         console.log(song);
-      const  tdStyle =  {
+      const  tdStyle = {
             
                 display : 'inline-block',
                 color: 'black'
@@ -34,6 +34,8 @@ class SongItem extends React.Component {
 
     deleteSong(id)
     {
+        
+        console.log(id);
         this.props.deleteSong(id);
 
     }
